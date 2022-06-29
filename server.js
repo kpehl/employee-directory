@@ -9,12 +9,24 @@ require('./config/passport');
 
 const hotlink = require('./utils/hotlink');
 
+const helmet = require('helmet');
+const ContentSecurityPolicy = require('./config/helmet');
+
 const routes = require('./controllers');
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(ContentSecurityPolicy);
+app.use(
+  helmet.referrerPolicy({
+    policy: 'no-referrer',
+  })
+);
+app.use(helmet.noSniff());
 
 app.use(serverSession);
 
