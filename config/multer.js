@@ -24,7 +24,7 @@ const filter = (req, file, cb) => {
 
 const upload = multer({
     storage: storage,
-    limits: { fileSize: 100000 },
+    limits: { fileSize: 1000000 },
     fileFilter: filter,
 }).single('avatar');
   
